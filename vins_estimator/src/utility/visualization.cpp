@@ -117,8 +117,8 @@ void printStatistics(const Estimator &estimator, double t)
     sum_of_path += (estimator.Ps[WINDOW_SIZE] - last_path).norm();
     last_path = estimator.Ps[WINDOW_SIZE];
     ROS_DEBUG("sum of path %f", sum_of_path);
-    if (ESTIMATE_TD)
-        ROS_INFO("td %f", estimator.td);
+/*     if (ESTIMATE_TD)
+        ROS_INFO("td %f", estimator.td); */
 }
 
 void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
@@ -161,17 +161,26 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
         foutC << estimator.Ps[WINDOW_SIZE].x() << ","
               << estimator.Ps[WINDOW_SIZE].y() << ","
               << estimator.Ps[WINDOW_SIZE].z() << ","
-              << tmp_Q.w() << ","
-              << tmp_Q.x() << ","
-              << tmp_Q.y() << ","
-              << tmp_Q.z() << ","
-              << estimator.Vs[WINDOW_SIZE].x() << ","
-              << estimator.Vs[WINDOW_SIZE].y() << ","
-              << estimator.Vs[WINDOW_SIZE].z() << "," << endl;
+            //   << tmp_Q.w() << ","
+            //   << tmp_Q.x() << ","
+            //   << tmp_Q.y() << ","
+            //   << tmp_Q.z() << ","
+            //   << estimator.Vs[WINDOW_SIZE].x() << ","
+            //   << estimator.Vs[WINDOW_SIZE].y() << ","
+            //   << estimator.Vs[WINDOW_SIZE].z() << "," 
+              << estimator.Bas[WINDOW_SIZE].x()<< ","
+              << estimator.Bas[WINDOW_SIZE].y()<< ","
+              << estimator.Bas[WINDOW_SIZE].z()<< ","
+              << estimator.Bgs[WINDOW_SIZE].x()<< ","
+              << estimator.Bgs[WINDOW_SIZE].y()<< ","
+              << estimator.Bgs[WINDOW_SIZE].z()<< "," << endl;
         foutC.close();
         Eigen::Vector3d tmp_T = estimator.Ps[WINDOW_SIZE];
-        printf("time: %f, t: %f %f %f q: %f %f %f %f \n", header.stamp.toSec(), tmp_T.x(), tmp_T.y(), tmp_T.z(),
-                                                          tmp_Q.w(), tmp_Q.x(), tmp_Q.y(), tmp_Q.z());
+        Eigen::Vector3d tmp_gb = estimator.Bas[WINDOW_SIZE];
+        Eigen::Vector3d tmp_ab = estimator.Bgs[WINDOW_SIZE];
+        // printf("time: %f, t: %f %f %f q: %f %f %f %f \n", header.stamp.toSec(), tmp_T.x(), tmp_T.y(), tmp_T.z(),
+        //                                                   tmp_Q.w(), tmp_Q.x(), tmp_Q.y(), tmp_Q.z());
+        // printf("a: %f, %f, %f g: %f %f %f \n", tmp_ab.x(), tmp_ab.y(), tmp_ab.z(), tmp_gb.x(), tmp_gb.y(), tmp_gb.z());
     }
 }
 
