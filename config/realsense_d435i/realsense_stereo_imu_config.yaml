@@ -24,22 +24,22 @@ body_T_cam0: !!opencv-matrix
    rows: 4
    cols: 4
    dt: d
-   data: [ 9.8999445722121671e-01, -2.4078623795742920e-02,
-       -1.3903666619770363e-01, 9.0592731634910328e-02,
-       2.2007123135842705e-02, 9.9962300718367614e-01,
-       -1.6417370080134889e-02, 7.5682572669842449e-02,
-       1.3937955805121652e-01, 1.3193308348073059e-02,
-       9.9015113766145835e-01, -5.3200662833340640e-01, 0., 0., 0., 1. ]
+   data: [ 9.9993961724708558e-01, -1.0594942619596147e-02,
+       2.9170277063096687e-03, 3.2237851861632557e-03,
+       1.0603501328048491e-02, 9.9993947573182995e-01,
+       -2.9343879667189429e-03, 1.4390688925295901e-02,
+       -2.8857614832114922e-03, 2.9651414874532021e-03,
+       9.9999144012167496e-01, 6.6569715769490842e-03, 0., 0., 0., 1. ]
 body_T_cam1: !!opencv-matrix
    rows: 4
    cols: 4
    dt: d
-   data: [ 9.8904079147978208e-01, -2.1374615057548962e-02,
-       -1.4608709258585381e-01, 1.2610997878595445e-01,
-       1.9151779443680014e-02, 9.9967868097559787e-01,
-       -1.6605545670932913e-02, 7.6629813030045221e-02,
-       1.4639508917032309e-01, 1.3625734256560423e-02,
-       9.8913235577084568e-01, -5.2401497832661648e-01, 0., 0., 0., 1. ]
+   data: [ 9.9992685146472737e-01, -1.0892796505912216e-02,
+       -5.2572525255844063e-03, 5.1984933070651246e-02,
+       1.0874801956791349e-02, 9.9993495269645216e-01,
+       -3.4393398123044681e-03, 1.6583085192925916e-02,
+       5.2943745841736618e-03, 3.3819166495823215e-03,
+       9.9998026592405198e-01, 1.3789106288258402e-02, 0., 0., 0., 1. ]
 
 #Multiple thread support
 multiple_thread: 1
@@ -58,15 +58,15 @@ max_num_iterations: 8   # max solver itrations, to guarantee real time
 keyframe_parallax: 10.0 # keyframe selection threshold (pixel)
 
 #imu parameters       The more accurate parameters you provide, the better performance
-acc_n: 0.2         # accelerometer measurement noise standard deviation. #0.2   0.04
-gyr_n: 0.002         # gyroscope measurement noise standard deviation.     #0.05  0.004
-acc_w: 0.002         # accelerometer bias random work noise standard deviation.  #0.002
-gyr_w: 0.0002       # gyroscope bias random work noise standard deviation.     #4.0e-5
+acc_n: 1.7512828345266122e-02 #0.04         # accelerometer measurement noise standard deviation. #0.2   0.04
+gyr_n: 3.3502044635737617e-03 #0.004         # gyroscope measurement noise standard deviation.     #0.05  0.004
+acc_w: 4.2528647943077756e-04 #0.002         # accelerometer bias random work noise standard deviation.  #0.002
+gyr_w: 4.8760608618583259e-05 #4.0e-5       # gyroscope bias random work noise standard deviation.     #4.0e-5
 g_norm: 9.8046         # gravity magnitude
 
 #unsynchronization parameters
 estimate_td: 1                      # online estimate time offset between camera and imu
-td: 0.00                             # initial value of time offset. unit: s. readed image clock + td = real image clock (IMU clock)
+td: 0.002004                             # initial value of time offset. unit: s. readed image clock + td = real image clock (IMU clock)
 
 #loop closure parameters
 load_previous_pose_graph: 1        # load and reuse previous pose graph; load from 'pose_graph_save_path'
