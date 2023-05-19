@@ -153,6 +153,7 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
         pub_path.publish(path);
 
         // write result to file
+/*
         ofstream foutC(VINS_RESULT_PATH, ios::app);
         foutC.setf(ios::fixed, ios::floatfield);
         foutC.precision(0);
@@ -181,6 +182,20 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
         // printf("time: %f, t: %f %f %f q: %f %f %f %f \n", header.stamp.toSec(), tmp_T.x(), tmp_T.y(), tmp_T.z(),
         //                                                   tmp_Q.w(), tmp_Q.x(), tmp_Q.y(), tmp_Q.z());
         // printf("a: %f, %f, %f g: %f %f %f \n", tmp_ab.x(), tmp_ab.y(), tmp_ab.z(), tmp_gb.x(), tmp_gb.y(), tmp_gb.z());
+*/
+        double truetime = header.stamp.toSec();
+        ofstream foutC(VINS_RESULT_PATH, ios::app);
+        foutC.setf(ios::fixed, ios::floatfield);
+        foutC << truetime << " ";
+        foutC << estimator.Ps[WINDOW_SIZE].x() << " "
+              << estimator.Ps[WINDOW_SIZE].y() << " "
+              << estimator.Ps[WINDOW_SIZE].z() << " "
+              << tmp_Q.x() << " "
+              << tmp_Q.y() << " "
+              << tmp_Q.z() << " "
+              << tmp_Q.w() << endl;
+        foutC.close();     
+
     }
 }
 

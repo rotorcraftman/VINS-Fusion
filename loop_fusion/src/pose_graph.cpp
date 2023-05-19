@@ -181,6 +181,7 @@ void PoseGraph::addKeyFrame(KeyFrame* cur_kf, bool flag_detect_loop)
 
     if (SAVE_LOOP_PATH)
     {
+    /*
         ofstream loop_path_file(VINS_RESULT_PATH, ios::app);
         loop_path_file.setf(ios::fixed, ios::floatfield);
         loop_path_file.precision(0);
@@ -193,6 +194,20 @@ void PoseGraph::addKeyFrame(KeyFrame* cur_kf, bool flag_detect_loop)
               << Q.x() << ","
               << Q.y() << ","
               << Q.z() << ","
+              << endl;
+        loop_path_file.close();
+    */
+        ofstream loop_path_file(VINS_RESULT_PATH, ios::app);
+        double truetime = cur_kf->time_stamp;
+        loop_path_file.setf(ios::fixed, ios::floatfield);
+        loop_path_file << truetime << " ";
+        loop_path_file  << P.x() << " "
+              << P.y() << " "
+              << P.z() << " "
+              << Q.x() << " "
+              << Q.y() << " "
+              << Q.z() << " "
+              << Q.w() << " "
               << endl;
         loop_path_file.close();
     }
