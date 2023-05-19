@@ -183,18 +183,20 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
         //                                                   tmp_Q.w(), tmp_Q.x(), tmp_Q.y(), tmp_Q.z());
         // printf("a: %f, %f, %f g: %f %f %f \n", tmp_ab.x(), tmp_ab.y(), tmp_ab.z(), tmp_gb.x(), tmp_gb.y(), tmp_gb.z());
 */
-        double truetime = header.stamp.toSec();
-        ofstream foutC(VINS_RESULT_PATH, ios::app);
-        foutC.setf(ios::fixed, ios::floatfield);
-        foutC << truetime << " ";
-        foutC << estimator.Ps[WINDOW_SIZE].x() << " "
+        
+        ofstream foutC2(VINS_RESULT_PATH, ios::app);
+        foutC2.precision(9);
+        foutC2.setf(ios::fixed, ios::floatfield);
+        foutC2 << header.stamp.toSec() << " ";
+        foutC2.precision(6);
+        foutC2 << estimator.Ps[WINDOW_SIZE].x() << " "
               << estimator.Ps[WINDOW_SIZE].y() << " "
               << estimator.Ps[WINDOW_SIZE].z() << " "
               << tmp_Q.x() << " "
               << tmp_Q.y() << " "
               << tmp_Q.z() << " "
               << tmp_Q.w() << endl;
-        foutC.close();     
+        foutC2.close();     
 
     }
 }
@@ -293,6 +295,17 @@ void pubPointCloud(const Estimator &estimator, const std_msgs::Header &header)
         p.y = w_pts_i(1);
         p.z = w_pts_i(2);
         point_cloud.points.push_back(p);
+        
+        // geometry_msgs::Point32 p_temp;
+        // if(-5<p.x < 3 && -4<p.y<5) {
+        //     p_temp.x = p.x;
+        //     p_temp.y = p.y;
+        // }
+        // ofstream foutC2(VINS_RESULT_PATH, ios::app);
+        // foutC2.precision(6);
+        // foutC2 << p_temp.x << " "
+        //     << p_temp.y << endl;
+        // foutC2.close();    
     }
     pub_point_cloud.publish(point_cloud);
 

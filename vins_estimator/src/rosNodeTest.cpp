@@ -134,6 +134,7 @@ void sync_process()
 
 void imu_callback(const sensor_msgs::ImuConstPtr &imu_msg)
 {
+    double temp = 0;
     double t = imu_msg->header.stamp.toSec();
     double dx = imu_msg->linear_acceleration.x;
     double dy = imu_msg->linear_acceleration.y;
@@ -141,6 +142,12 @@ void imu_callback(const sensor_msgs::ImuConstPtr &imu_msg)
     double rx = imu_msg->angular_velocity.x;
     double ry = imu_msg->angular_velocity.y;
     double rz = imu_msg->angular_velocity.z;
+    // temp = dx;
+    // dx = dy;
+    // dy = -temp;
+    // temp = rx;
+    // rx = ry;
+    // ry = temp;
     Vector3d acc(dx, dy, dz);
     Vector3d gyr(rx, ry, rz);
     estimator.inputIMU(t, acc, gyr);
@@ -264,7 +271,6 @@ int main(int argc, char **argv)
     ros::Subscriber sub_restart = n.subscribe("/vins_restart", 100, restart_callback);
     ros::Subscriber sub_imu_switch = n.subscribe("/vins_imu_switch", 100, imu_switch_callback);
     ros::Subscriber sub_cam_switch = n.subscribe("/vins_cam_switch", 100, cam_switch_callback);
-
     std::thread sync_thread{sync_process};
     ros::spin();
 
